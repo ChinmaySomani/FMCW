@@ -49,5 +49,5 @@ models.sequelize.sync().then(function() {
 });
 
 app.listen(process.env.PORT, process.env.IP, function(err, result){
-    console.log('Server is running at port 3000!');
+    console.log('Server is running at port!');
 });
