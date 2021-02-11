@@ -7,7 +7,7 @@ exports.home = function(req, res){
 }
 
 exports.alluser = function(req, res){
-    models.participant.findAll()
+    models.user.findAll()
     .then(result => {
         res.send(result);
     }).catch(error => {

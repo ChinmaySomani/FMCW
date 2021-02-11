@@ -18,15 +18,6 @@ module.exports = function(sequelize, Sequelize) {
         price : {
             type: Sequelize.BIGINT
         },
- 
-        workshop_name: {
-            type: Sequelize.TEXT,
-        },
- 
-        workshop_details: {
-            type: Sequelize.TEXT
-        },
- 
         club: {
             type: Sequelize.TEXT
         }

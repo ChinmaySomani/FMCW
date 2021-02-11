@@ -30,9 +30,11 @@ exports.postsign = function(req, res){
 }
 
 exports.register = function(req, res){
-    var participants = req.body;
-    participants.userid = req.user.id;
-    models.participant.create(participants).then(result => {
+    models.user.update(req.body, {
+        where : {
+            id : req.user.id
+        }
+    }).then(result => {
         res.send(result);
     }).catch(error => {
         console.log(error);

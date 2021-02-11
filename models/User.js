@@ -28,6 +28,30 @@ module.exports = function(sequelize, Sequelize) {
         status: {
             type: Sequelize.ENUM('active', 'inactive'),
             defaultValue: 'active'
+        },
+        name: {
+            type: Sequelize.TEXT
+        },
+        institute: {
+            type: Sequelize.TEXT,
+        },
+        year: {
+            type: Sequelize.INTEGER
+        },
+        mobile : {
+            type: Sequelize.BIGINT
+        },
+        insta: {
+            type: Sequelize.TEXT,
+        },
+        email: {
+            type: Sequelize.TEXT,
+            // unique: true,
+            validate: {
+              isEmail: {
+                msg: "Must be a valid email address",
+              }
+            }      
         }
     });
  

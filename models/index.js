@@ -27,8 +27,8 @@ Object.keys(db).forEach(function(modelName) {
     }
 });
 
-db['participant'].belongsToMany(db.event, { through: 'EventPart' });
-db.event.belongsToMany(db.participant, { through: 'EventPart' });
+db['user'].belongsToMany(db.event, { through: db.eventpart });
+db.event.belongsToMany(db.user, { through: db.eventpart });
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;

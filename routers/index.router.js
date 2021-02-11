@@ -17,14 +17,4 @@ router.get('/admin/addevent', isLoggedIn, function(req, res){
 
 router.post('/admin/addevent', isLoggedIn, index.addevent);
 
-router.get('/contactus', function(req, res){
-    res.send('Contact Information');
-});
-
-router.get('/faq', function(req, res){
-    res.send('Frequently Asked Questions');
-});
-
-
-
 module.exports = router;

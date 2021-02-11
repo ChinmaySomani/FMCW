@@ -5,7 +5,7 @@ const isLoggedIn = require('../middleware/auth.js');
 
 router.get('/event', isLoggedIn, index.allevent);
 
-router.get('/event/participate', function(req, res){
-    res.send('Payment Page');
-});
+router.get('/event/participate/:id', index.participate);
+
+router.get('/event/okay', index.okay);
 module.exports = router;
