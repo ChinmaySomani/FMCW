@@ -68,6 +68,6 @@ models.sequelize.sync().then(function() {
 });
 
 
-app.listen(env.process.PORT, env.process.IP, function(err, result){
+app.listen(process.env.PORT, process.env.IP, function(err, result){
     console.log('Server is running at port!');
 });
