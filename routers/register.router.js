@@ -2,6 +2,7 @@ var router = require('express').Router();
 var index = require('../controllers/register.controller.js');
 var passport = require('passport');
 const isLoggedIn = require('../middleware/auth.js');
+var gauth = require('../middleware/goath.js')
 
 router.get('/login', index.login);
 
