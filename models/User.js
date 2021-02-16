@@ -7,11 +7,15 @@ module.exports = function(sequelize, Sequelize) {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
- 
-        username: {
-            type: Sequelize.TEXT
+        email: {
+            type: Sequelize.TEXT,
+            // unique: true,
+            validate: {
+              isEmail: {
+                msg: "Must be a valid email address",
+              }
+            }      
         },
- 
         type : {
             type: Sequelize.TEXT
         },
@@ -20,11 +24,6 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.STRING,
             allowNull: false
         },
- 
-        last_login: {
-            type: Sequelize.DATE
-        },
- 
         status: {
             type: Sequelize.ENUM('active', 'inactive'),
             defaultValue: 'active'
@@ -43,15 +42,6 @@ module.exports = function(sequelize, Sequelize) {
         },
         insta: {
             type: Sequelize.TEXT,
-        },
-        email: {
-            type: Sequelize.TEXT,
-            // unique: true,
-            validate: {
-              isEmail: {
-                msg: "Must be a valid email address",
-              }
-            }      
         }
     });
  

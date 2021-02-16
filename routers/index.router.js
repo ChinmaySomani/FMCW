@@ -6,17 +6,17 @@ const isLoggedIn = require('../middleware/auth.js');
 
 router.get('/', index.home);
 
-router.get('/admin', isLoggedIn, function(req, res){
+router.get('/admin', function(req, res){
     res.render('admin.ejs');
 });
 
-router.get('/admin/alluser', isLoggedIn, index.alluser);
+router.get('/admin/alluser', index.alluser);
 
-router.get('/admin/addevent', isLoggedIn, function(req, res){
+router.get('/admin/addevent', function(req, res){
     res.render('addevent.ejs');
 });
 
-router.post('/admin/addevent', isLoggedIn, index.addevent);
+router.post('/admin/addevent', index.addevent);
 
 
 

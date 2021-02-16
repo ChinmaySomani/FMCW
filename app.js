@@ -9,6 +9,11 @@ var passport = require('passport')
 var session = require('express-session')
 const Razorpay = require('razorpay')
 
+//Google Auth
+const {OAuth2Client} = require('google-auth-library');
+const CLIENT_ID = '214944693451-44fee8em9ahdseehh4m0imeinqsn90o8.apps.googleusercontent.com'
+const client = new OAuth2Client(CLIENT_ID);
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
@@ -23,12 +28,57 @@ var models = require("./models");
 app.use(session({
     secret: 'FMC is love, FMC is life',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    secure : true
 })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+// app.use(passport.initialize());
+// app.use(passport.session()); // persistent login sessions
 
-require('./services/passport.js')(passport, models.user);
+// require('./services/passport.js')(passport, models.user);
+
+//Google Login
+app.post('/google/login',function(req, res){
+  let token = req.body.token;
+  var user = {};
+  async function verify() {
+      const ticket = await client.verifyIdToken({
+          idToken: token,
+          audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+      });
+      const payload = ticket.getPayload();
+      user.email = payload.email;
+      user.password = payload.password;
+      models.user.findOne({where : {
+        email : payload.email
+      }}).then((foundItem) => {
+        if(!foundItem){
+          models.user.create(user)
+          .then(function(result){
+            console.log('Added new user');
+          }).catch(function(error){
+            console.log(error);
+          });
+        }
+      })
+    }
+    verify()
+    .then(()=>{
+        req.session.token = token;
+        req.user = user;
+        res.send('success')
+    })
+    .catch(console.error);
+
+});
+
+app.get('/google/logout', function(req, res){
+  req.session.destroy(function(err) {
+ 
+    res.redirect('/');
+
+});
+})
+
 
 var instance = new Razorpay({
   key_id: 'rzp_test_BZmqKg2c3vGbFd',

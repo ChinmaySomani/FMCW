@@ -15,6 +15,9 @@ module.exports = function(sequelize, Sequelize) {
         link : {
             type: Sequelize.TEXT
         },
+        date : {
+            type: Sequelize.DATE
+        },
         price : {
             type: Sequelize.BIGINT
         },

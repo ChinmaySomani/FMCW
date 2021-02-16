@@ -17,7 +17,7 @@ exports.alluser = function(req, res){
 
 exports.addevent = function(req, res){
     models.event.create(req.body).then(result => {
-        res.redirect('/event');
+        res.send(result);
     }).catch(error => {
         console.log(error);
     })
