@@ -54,6 +54,7 @@ app.post('/google/login',function(req, res){
         if(!foundItem){
           models.user.create(user)
           .then(function(result){
+            req.user = result;
             console.log('Added new user');
           }).catch(function(error){
             console.log(error);
@@ -64,7 +65,6 @@ app.post('/google/login',function(req, res){
     verify()
     .then(()=>{
         req.session.token = token;
-        req.user = user;
         res.send('success')
     })
     .catch(console.error);

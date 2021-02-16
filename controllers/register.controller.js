@@ -32,10 +32,11 @@ exports.postsign = function(req, res){
 exports.register = function(req, res){
     models.user.update(req.body, {
         where : {
-            id : req.user.id
+            email : req.user.email
         }
     }).then(result => {
         res.send(result);
+        req.user = result;
     }).catch(error => {
         console.log(error);
     });
