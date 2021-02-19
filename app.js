@@ -97,7 +97,7 @@ var options = {
 
 //Razorpay Verification Webhook
 
-app.post('/verification', (req, res) => {
+app.post('/payment/verification', (req, res) => {
 	const secret = '123456'
 	const crypto = require('crypto')
 
