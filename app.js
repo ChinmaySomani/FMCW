@@ -95,6 +95,27 @@ var options = {
  res.json(a)
 });
 
+//Razorpay Verification Webhook
+
+app.post('/verification', (req, res) => {
+	const secret = '123456'
+	const crypto = require('crypto')
+
+	const shasum = crypto.createHmac('sha256', secret)
+	shasum.update(JSON.stringify(req.body))
+	const digest = shasum.digest('hex')
+
+	if (digest === req.headers['x-razorpay-signature']) {
+		console.log('request is legit');
+		res.json({ status: 'ok' });
+    eventid = req.body.payload.payment.entity.order_id;
+    res.redirect('/event/participate/' + String(eventid));
+	} else { 
+		console.log('Payment Failed');
+    res.status('400')
+	}
+})
+
 
 //Routers
 const rout = require('./routers/index.router.js');
