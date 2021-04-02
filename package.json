@@ -1,0 +1,36 @@
+{
+  "name": "fmcweekend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "yarn add pg --save && yarn add pg-hstore --save && node app.js",
+    "build": "yarn add pg --save && node app.js"
+  },
+  "author": "Chinmay",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^4.4.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "express-session-sequelize": "^2.3.0",
+    "google-auth-library": "^7.0.2",
+    "https": "^1.0.0",
+    "instamojo-nodejs": "^0.0.5",
+    "method-override": "^3.0.0",
+    "nodemailer": "^6.5.0",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "query-string": "^6.14.0",
+    "randomstring": "^1.1.5",
+    "sequelize": "^6.6.2",
+    "url": "^0.11.0"
+  }
+}
