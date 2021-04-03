@@ -12,5 +12,6 @@ router.get('/admin', function(req, res){
 
 router.get('/admin/alluser', index.alluser);
 
+// router.get('/verti', index.verti);
 
 module.exports = router;
