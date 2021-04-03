@@ -16,6 +16,8 @@ exports.getGoogleUserInfo = async function(access_token) {
     idToken: access_token,
     audience: CLIENT_ID, // Specify the CLIENT_ID of the app that accesses the backend
   });
+  var message;
+  if(!ticket){message = "notoken"; return message;};
   const payload = ticket.getPayload();
   // console.log(payload); // { id, email, given_name, family_name }
   var email = payload.email;

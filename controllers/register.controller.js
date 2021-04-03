@@ -114,6 +114,10 @@ exports.details = async function(req, res){
     var type;
     
     await getGoogleUserInfo(token).then((result)=>{
+        console.log(result);
+        if(result === "notoken"){
+            res.json({"message": message});
+        };
         dashuser.email = result;
     }).catch((error)=>{
         console.log(error);

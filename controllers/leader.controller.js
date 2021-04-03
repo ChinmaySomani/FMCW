@@ -14,5 +14,10 @@ exports.leader = function(req, res){
 };
 
 // exports.change = async function(req, res){
-//     await models.pa.updare
-// }
+//     await models.pa.update({norefcode: 0}, {where : {email: 'chinmaycooldud@gmail.com'}});
+//     await models.pa.update({norefcode: 0}, {where : {email: 'arhanjain97@gmail.com'}});
+//     await models.pa.update({norefcode: 0}, {where : {email: 'arhan.jain126@gmail.com'}});
+//     await models.pa.update({norefcode: 0}, {where : {email: 'aryashukla95@gmail.com'}});
+//     await models.pa.update({norefcode: 0}, {where : {email: 'vishakhasedwal99@gmail.com'}});
+//     res.send('success');
+// };

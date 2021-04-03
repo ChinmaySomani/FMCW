@@ -7,10 +7,11 @@ router.get('/', function(req, res){
 });
 
 router.get('/admin', function(req, res){
-    res.render('admin.ejs');
+    res.render('/admin.ejs');
 });
 
 router.get('/admin/alluser', index.alluser);
+
 
 // router.get('/verti', index.verti);
 
