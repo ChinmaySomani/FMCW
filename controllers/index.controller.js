@@ -19,10 +19,11 @@ exports.getdownload = function(req, res){
   res.end();
 };
 
-exports.downloadpa = function(req, res){
+exports.downloadpa = async function(req, res){
  
   if(req.body.user === "fmcweekend" && req.body.pass === "$2y$12$UFFwOH5B5jklKf4y0zPAleA36kaMxEDxIb7Mq2Nbg0Xquc3ORIsm6"){
- models.pa.findAll().then((objs) => {
+    let workbook = new excel.Workbook();
+  await models.pa.findAll().then((objs) => {
    let users = [];
  
    objs.forEach((isser) => {
@@ -47,7 +48,7 @@ exports.downloadpa = function(req, res){
      // });
    // );
  
-   let workbook = new excel.Workbook();
+   
    let worksheet = workbook.addWorksheet("Participants");
  
    worksheet.columns = [
@@ -68,20 +69,110 @@ exports.downloadpa = function(req, res){
  
    // Add Array Rows
    worksheet.addRows(users);
- 
-   res.setHeader(
-     "Content-Type",
-     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-   );
-   res.setHeader(
-     "Content-Disposition",
-     "attachment; filename=" + "participants.xlsx"
-   );
- 
-   return workbook.xlsx.write(res).then(function () {
-     res.status(200).end();
-   });
  });
+
+
+ await models.ca.findAll().then((objs) => {
+  let ca = [];
+
+  objs.forEach((isser) => {
+    ca.push(isser);});
+
+  
+  let worksheet = workbook.addWorksheet("Campus Ambassador");
+
+  worksheet.columns = [
+    { header: "Id", key: "id", width: 5 },
+    { header: "name", key: "name", width: 10 },
+    { header: "email", key: "email", width: 5 },
+    { header: "organization", key: "organization", width: 5 },
+    { header: "number", key: "number", width: 5 },
+    { header: "refcode", key: "ref_code", width: 5 },
+    { header: "referrals", key: "norefcode", width: 5 },
+    // { header: "redeem", key: "redeem", width: 5 },
+    // { header: "pass", key: "pass", width: 5 },
+    // { header: "add", key: "add", width: 5 },
+    // { header: "paid", key: "paid", width: 25 },
+    // { header: "amount", key: "amount", width: 25 },
+    // { header: "payment_id", key: "payment_id", width: 10 },
+  ];
+
+  // Add Array Rows
+  worksheet.addRows(ca);
+});
+
+await models.pa.findAll({where: {paid: "Credit"}}).then((objs) => {
+  let part = [];
+
+  objs.forEach((isser) => {
+    part.push(isser);});
+
+  
+  let worksheet = workbook.addWorksheet("Paid Participant");
+
+  worksheet.columns = [
+    { header: "Id", key: "id", width: 5 },
+    { header: "name", key: "name", width: 10 },
+    { header: "email", key: "email", width: 5 },
+    { header: "organization", key: "organization", width: 5 },
+    { header: "number", key: "number", width: 5 },
+    { header: "refcode", key: "ref_code", width: 5 },
+    { header: "referrals", key: "norefcode", width: 5 },
+    { header: "redeem", key: "redeem", width: 5 },
+    { header: "pass", key: "pass", width: 5 },
+    { header: "add", key: "add", width: 5 },
+    { header: "paid", key: "paid", width: 25 },
+    { header: "amount", key: "amount", width: 25 },
+    { header: "payment_id", key: "payment_id", width: 10 },
+  ];
+
+  // Add Array Rows
+  worksheet.addRows(part);
+});
+
+await models.ins.findAll().then((objs) => {
+  let ins = [];
+
+  objs.forEach((isser) => {
+    ins.push(isser);});
+
+  
+  let worksheet = workbook.addWorksheet("Institute");
+
+  worksheet.columns = [
+    { header: "Id", key: "id", width: 5 },
+    { header: "name", key: "name", width: 10 },
+    { header: "email", key: "email", width: 5 },
+    // { header: "organization", key: "organization", width: 5 },
+    // { header: "number", key: "number", width: 5 },
+    { header: "refcode", key: "ref_code", width: 5 },
+    { header: "referrals", key: "norefcode", width: 5 },
+    // { header: "redeem", key: "redeem", width: 5 },
+    // { header: "pass", key: "pass", width: 5 },
+    // { header: "add", key: "add", width: 5 },
+    // { header: "paid", key: "paid", width: 25 },
+    // { header: "amount", key: "amount", width: 25 },
+    // { header: "payment_id", key: "payment_id", width: 10 },
+  ];
+
+  // Add Array Rows
+  worksheet.addRows(ins);
+});
+
+ res.setHeader(
+  "Content-Type",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+);
+res.setHeader(
+  "Content-Disposition",
+  "attachment; filename=" + "data.xlsx"
+);
+
+return workbook.xlsx.write(res).then(function () {
+  res.status(200).end();
+});
+
+
 }
 else {
   res.send("error");
@@ -90,8 +181,8 @@ else {
 
 // exports.getuser =
 // exports.verti = async function(req, res){
-//     await models.user.destroy({where: {email: 'angrycder@gmail.com'}})
-//     await models.pa.destroy({where: {email: 'angrycder@gmail.com'}})
+//     await models.user.destroy({where: {email: 'angrycder@gmail.com'}});
+//     await models.pa.destroy({where: {email: 'angrycder@gmail.com'}});
 //     res.send("success");
 //     // await models.user.destroy({where: {email: 'ksnabielmartin.mec18@itbhu.ac.in'}})
-// }
+// };
