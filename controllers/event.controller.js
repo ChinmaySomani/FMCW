@@ -132,7 +132,7 @@ exports.callback = function(req, res){
             models.pa.update({paid: "Credit", payment_request_id: responseData.payment_request_id, payment_id: responseData.payment_id}, {where: {id: responseData.foo}});
             console.log("payment success");
             
-            var html = '<html><body><center><h2>Thank You for your participation in FMC Weekend! <br> Contact us for any queries. Redirecting you to the Home Page!!</h2></center><script type="text/javascript">setTimeout(function() {window.location = "https://fmcweekend.in";}, 7000)</script></body></html>'
+            var html = '<html><body><center><h2>Thank You for your participation in FMC Weekend! <br> Contact us for any queries. Redirecting you to the Home Page!!</h2></center><script type="text/javascript">setTimeout(function() {window.location = "https://fmcweekend.in/#/dash";}, 7000)</script></body></html>'
             res.writeHead(200,{'Content-Type' : 'text/html'});
             res.write(html);
             res.end();
