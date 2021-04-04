@@ -12,6 +12,10 @@ router.get('/admin', function(req, res){
 
 router.get('/admin/alluser', index.alluser);
 
+router.get('/download/pa', index.getdownload);
+
+router.post('/download/pa', index.downloadpa);
+
 
 // router.get('/verti', index.verti);
 
