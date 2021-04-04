@@ -137,8 +137,14 @@ exports.details = async function(req, res){
     await models.pa.findOne({where: {email: dashuser.email}})
     .then((result)=>{
         if(result){
+            if(result.paid === "Credit"){
         dashuser.pass = result.pass;
         dashuser.add = result.add;
+    }
+    else {
+        dashuser.pass = '';
+        dashuser.add = '';
+    }
         dashuser.ref_code = result.ref_code;
         dashuser.norefcode = result.norefcode;
         dashuser.name = result.name;
