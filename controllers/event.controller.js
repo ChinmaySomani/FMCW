@@ -154,20 +154,34 @@ exports.webhook = async function(req, res){
   ref_code = await genrefcodepa();
   console.log(ref_code);
 
-  if(req.body.status === 'Credit')
-  {
+  if(req.body.status === "Credit"){
+    await models.pa.findOne({where: {email: req.body.buyer}})
+    .then((result)=>{
+      if(result.redeem && result.redeem.substring(0,2)==="CA"){
+        models.ca.findOne({where: {ref_code : result.redeem}}).then((found)=>{
+          models.ca.update({norefcode: Number(found.norefcode)+1}, {where : {ref_code: found.ref_code}})
+        });
+      }
+    else if(result.redeem && result.redeem.substring(0,2)==="PA"){
+        models.pa.findOne({where: {ref_code : result.redeem}})
+        .then((found)=>{
+            models.pa.update({norefcode: Number(found.norefcode)+1}, {where : {ref_code: found.ref_code}})
+        });
+    };
+    });
+
     await models.pa.update({ref_code: ref_code}, {where:{email: req.body.buyer}})
     .then((result)=>{
       console.log("refcode generated");
       res.send("payment success");
     }).catch((error)=>{
       console.log(error);
-    });    
+    });  
   }
-  else{
-    res.send("payment failed");
+  else {
+    res.send("Payment Failed");
+  };  
   };
-};
 
 exports.payment = async function(req, res){
     var user = {};
