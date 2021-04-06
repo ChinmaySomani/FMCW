@@ -157,7 +157,14 @@ app.post('/google/login',function(req, res){
               });
         }
         else if(user.type === "CA")res.json({"message": "ca"});
-        else if(user.type === "PA")res.json({"message": "pa"});
+        else if(user.type === "PA"){
+          // var paid;
+          models.pa.findOne({where: {email: user.email}}).then((result)=>{
+            res.json({"message": "pa", "paid": result.paid});
+          }).catch((error)=>{
+            console.log("error");
+          });
+        }
         else res.json({"message": "nodetail"});
         // await models.user.findOne({where: {email: user.email}})
         // .then((found)=>{
