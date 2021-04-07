@@ -66,12 +66,34 @@ exports.registerpa = async function(req, res){
             console.log(pa.codecheck);
             var norefcode = foundItem.norefcode;
             console.log(norefcode);
-            await models.ca.update({norefcode: Number(norefcode)+1}, {where : {ref_code: foundItem.ref_code}})
-            .then((result)=>{
-                console.log("ca updated");
-            }).catch((error)=>{
-                console.log(error);
-            });
+            // await models.ca.update({norefcode: Number(norefcode)+1}, {where : {ref_code: foundItem.ref_code}})
+            // .then((result)=>{
+            //     console.log("ca updated");
+            // }).catch((error)=>{
+            //     console.log(error);
+            // });
+        }).catch((error)=>{
+            res.send(error);
+        });
+    }
+
+    else if(pa.redeem && pa.redeem.substring(0,2)==="IN"){
+        console.log('in');
+        await models.ins.findOne({where: {ref_code : pa.redeem}})
+        .then(async (foundItem)=>{
+            if(!foundItem){
+            res.json({"error": "InvalidCode"});
+            }
+            pa.codecheck = 1;
+            console.log(pa.codecheck);
+            var norefcode = foundItem.norefcode;
+            console.log(norefcode);
+            // await models.ca.update({norefcode: Number(norefcode)+1}, {where : {ref_code: foundItem.ref_code}})
+            // .then((result)=>{
+            //     console.log("ca updated");
+            // }).catch((error)=>{
+            //     console.log(error);
+            // });
         }).catch((error)=>{
             res.send(error);
         });
@@ -88,12 +110,12 @@ exports.registerpa = async function(req, res){
             console.log(pa.codecheck);
             var norefcode = foundItem.norefcode;
             console.log(norefcode);
-            await models.pa.update({norefcode: Number(norefcode)+1}, {where : {ref_code: foundItem.ref_code}})
-            .then((result)=>{
-                console.log("pa updated");
-            }).catch((error)=>{
-                console.log(error);
-            });
+            // await models.pa.update({norefcode: Number(norefcode)+1}, {where : {ref_code: foundItem.ref_code}})
+            // .then((result)=>{
+                // console.log("pa updated");
+            // }).catch((error)=>{
+                // console.log(error);
+            // });
         }).catch((error)=>{
             res.send(error);
         });

@@ -162,6 +162,13 @@ exports.webhook = async function(req, res){
           models.ca.update({norefcode: Number(found.norefcode)+1}, {where : {ref_code: found.ref_code}})
         });
       }
+
+      else if(result.redeem && result.redeem.substring(0,2)==="IN"){
+        models.ins.findOne({where: {ref_code : result.redeem}}).then((found)=>{
+          models.ins.update({norefcode: Number(found.norefcode)+1}, {where : {ref_code: found.ref_code}})
+        });
+      }
+
     else if(result.redeem && result.redeem.substring(0,2)==="PA"){
         models.pa.findOne({where: {ref_code : result.redeem}})
         .then((found)=>{
